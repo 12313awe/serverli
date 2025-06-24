@@ -1,183 +1,234 @@
-# 💬 AI-Powered Chat Interface
+# BioCryptor - Genetic Encryption AI Platform
 
-![License](https://img.shields.io/badge/License-MIT-blue.svg)
-![Version](https://img.shields.io/badge/version-1.0.0-brightgreen)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+A modern, full-stack application featuring genetic encryption algorithms powered by AI, built with React frontend and Express.js backend in a monorepo structure.
 
-A modern, responsive chat interface powered by Langflow, built with React, TypeScript, and Tailwind CSS. This application provides a seamless AI conversation experience with a clean, intuitive UI and smooth animations.
+## 🏗️ Architecture
 
-## ✨ Features
+This project uses a monorepo structure with separate frontend and backend packages:
 
-- **AI-Powered Chat** - Integrated with Langflow for intelligent conversations
-- **Modern UI/UX** - Built with Shadcn/UI and Tailwind CSS
-- **Session Management** - Maintains conversation context with session IDs
-- **Responsive Design** - Works on desktop and mobile devices
-- **Type Safety** - Full TypeScript support
-- **Netlify Functions** - Serverless backend for Langflow API integration
-- **Water Background** - Visually appealing animated water background
-- **Multi-language Support** - Built with internationalization (i18n) in mind
+```
+biocryptor-monorepo/
+├── packages/
+│   ├── frontend/          # React + TypeScript + Vite
+│   └── backend/           # Express.js + TypeScript
+├── package.json           # Root package.json with workspaces
+└── README.md
+```
 
-## 🛠️ Tech Stack
-
-- **Frontend**: React 18, TypeScript, Vite
-- **Styling**: Tailwind CSS, Shadcn/UI
-- **State Management**: React Query
-- **Animations**: Framer Motion
-- **Routing**: React Router v6
-- **Build Tool**: Vite
-- **Deployment**: Netlify
-
-## 🚀 Getting Started
+## 🚀 Quick Start
 
 ### Prerequisites
 
-- Node.js 16.0 or later
-- npm 7.0 or later
-- Git
+- Node.js 18+ 
+- npm 7+ (for workspaces support)
 
 ### Installation
 
-1. **Clone the repository**
+1. **Clone and install dependencies**
    ```bash
-   git clone https://github.com/your-username/chat-interface.git
-   cd chat-interface
-   ```
-
-2. **Install dependencies**
-   ```bash
+   git clone <repository-url>
+   cd biocryptor-monorepo
    npm install
-   # or
-   yarn install
    ```
 
-3. **Environment Setup**
-   Create a `.env` file in the root directory with the following variables:
-   ```env
-   # Required for Langflow integration
-   VITE_LANGFLOW_BASE_URL=your_langflow_base_url
-   VITE_FLOW_ID=your_flow_id
-   VITE_LANGFLOW_API_KEY=your_api_key
+2. **Environment Setup**
    
-   # Optional: For Hugging Face integration
-   VITE_HF_TOKEN=your_huggingface_token
-   
-   # Development server
-   PORT=3000
+   **Backend (.env):**
+   ```bash
+   cd packages/backend
+   cp .env.example .env
+   # Edit .env with your configuration
    ```
    
-   Note: For security reasons, never commit your `.env` file to version control. Add it to your `.gitignore` file.
+   **Frontend (.env):**
+   ```bash
+   cd packages/frontend  
+   cp .env.example .env
+   # Edit .env with your configuration
+   ```
 
-4. **Start the development server**
+3. **Start Development Servers**
+   ```bash
+   # From root directory - starts both frontend and backend
+   npm run dev
+   
+   # Or start individually:
+   npm run dev:backend   # Backend only (port 3001)
+   npm run dev:frontend  # Frontend only (port 5173)
+   ```
+
+## 📦 Available Scripts
+
+### Root Level Commands
+```bash
+npm run dev              # Start both frontend and backend
+npm run build            # Build both packages
+npm run start            # Start production backend
+npm run lint             # Lint both packages
+npm run clean            # Clean all build artifacts
+```
+
+### Backend Commands
+```bash
+npm run dev:backend      # Start backend development server
+npm run build:backend    # Build backend for production
+```
+
+### Frontend Commands  
+```bash
+npm run dev:frontend     # Start frontend development server
+npm run build:frontend   # Build frontend for production
+```
+
+## 🛠️ Technology Stack
+
+### Backend
+- **Express.js** - Web framework
+- **TypeScript** - Type safety
+- **Winston** - Logging
+- **Helmet** - Security middleware
+- **CORS** - Cross-origin resource sharing
+- **Express Rate Limit** - Rate limiting
+- **Express Validator** - Input validation
+
+### Frontend
+- **React 18** - UI framework
+- **TypeScript** - Type safety
+- **Vite** - Build tool and dev server
+- **Tailwind CSS** - Styling
+- **Shadcn/UI** - UI components
+- **React Query** - Data fetching
+- **React Router** - Routing
+- **Framer Motion** - Animations
+
+## 🔧 Configuration
+
+### Backend Environment Variables
+```env
+PORT=3001
+NODE_ENV=development
+API_PREFIX=/api/v1
+FRONTEND_URL=http://localhost:5173
+LANGFLOW_BASE_URL=your_langflow_base_url
+FLOW_ID=your_flow_id
+LANGFLOW_API_KEY=your_api_key
+HF_TOKEN=your_huggingface_token
+```
+
+### Frontend Environment Variables
+```env
+VITE_API_BASE_URL=http://localhost:3001/api/v1
+VITE_API_TIMEOUT=30000
+VITE_DEV_MODE=true
+```
+
+## 📡 API Endpoints
+
+### Chat Endpoints
+- `POST /api/v1/chat/message` - Send a message
+- `GET /api/v1/chat/session/:sessionId/history` - Get session history
+- `POST /api/v1/chat/session` - Create new session
+
+### Health Endpoints
+- `GET /api/v1/health` - Health check
+- `GET /api/v1/health/ready` - Readiness check
+
+## 🏃‍♂️ Development Workflow
+
+1. **Start development servers:**
    ```bash
    npm run dev
-   # or
-   yarn dev
    ```
 
-5. **Build for production**
-   ```bash
-   npm run build
-   # or
-   yarn build
-   ```
+2. **Access the application:**
+   - Frontend: http://localhost:5173
+   - Backend API: http://localhost:3001/api/v1
+   - Health Check: http://localhost:3001/api/v1/health
 
-## 🎨 Project Structure
+3. **Make changes:**
+   - Frontend changes auto-reload via Vite HMR
+   - Backend changes auto-restart via tsx watch
 
-```
-src/
-├── components/            # Reusable UI components
-│   ├── ui/                # Shadcn/UI components
-│   ├── ChatInterface.tsx  # Main chat interface component
-│   ├── MessageList.tsx    # Message display component
-│   └── Navigation.tsx     # Site navigation
-├── hooks/                 # Custom React hooks
-│   ├── useLanguage.tsx    # i18n hook
-│   └── useMobile.tsx      # Mobile detection hook
-├── lib/
-│   └── langflow-client.ts # Langflow API client
-├── pages/                 # Page components
-│   ├── Index.tsx          # Main page
-│   ├── About.tsx          # About page
-│   ├── Features.tsx       # Features page
-│   └── NotFound.tsx       # 404 page
-├── types/                 # TypeScript type definitions
-└── App.tsx                # Main application component
+## 🚀 Production Deployment
+
+### Build for Production
+```bash
+npm run build
 ```
 
-## 🌐 Netlify Functions
-
-The project uses Netlify Functions to securely communicate with the Langflow API:
-
-```
-netlify/
-└── functions/
-    └── langflow-proxy.ts  # Serverless function for Langflow API calls
+### Start Production Server
+```bash
+npm start
 ```
 
-## 🔌 API Integration
+### Environment Setup
+- Set `NODE_ENV=production`
+- Configure production database
+- Set up proper logging
+- Configure reverse proxy (nginx/Apache)
+- Set up SSL certificates
 
-The application uses Netlify Functions to securely communicate with the Langflow API. The main API client is located in `src/lib/langflow-client.ts`.
+## 🔒 Security Features
 
-### Environment Variables
+- **Helmet.js** - Security headers
+- **CORS** - Configured for specific origins
+- **Rate Limiting** - Prevents abuse
+- **Input Validation** - Express validator
+- **Error Handling** - Secure error responses
+- **Logging** - Comprehensive request/error logging
 
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `VITE_LANGFLOW_BASE_URL` | Base URL for Langflow API | Yes |
-| `VITE_FLOW_ID` | Your Langflow flow ID | Yes |
-| `VITE_LANGFLOW_API_KEY` | API key for Langflow | Yes |
-| `VITE_HF_TOKEN` | Hugging Face token (if using HF models) | No |
-| `PORT` | Development server port | No (default: 3000) |
+## 📝 API Response Format
 
-### API Endpoints
+### Success Response
+```json
+{
+  "success": true,
+  "data": { ... },
+  "timestamp": "2024-01-01T00:00:00.000Z"
+}
+```
 
-- `/.netlify/functions/langflow-proxy` - Proxy endpoint for Langflow API
+### Error Response
+```json
+{
+  "success": false,
+  "error": {
+    "message": "Error description",
+    "code": 400,
+    "details": { ... }
+  },
+  "timestamp": "2024-01-01T00:00:00.000Z"
+}
+```
 
-## 🐛 Debugging
+## 🧪 Testing
 
-1. **Development Tools**
-   - Use React DevTools for component inspection
-   - Check browser console for errors and warnings
-   - Monitor network requests in the browser's Network tab
-   - Check Netlify Functions logs in the Netlify dashboard
+```bash
+# Backend tests
+cd packages/backend
+npm test
 
-2. **Common Issues**
-   - Ensure all required environment variables are set in `.env`
-   - Verify Langflow API is accessible and credentials are correct
-   - Check CORS configuration if seeing network errors
-   - Clear browser cache if UI doesn't update after changes
+# Frontend tests  
+cd packages/frontend
+npm test
+```
 
-3. **Netlify Deployment**
-   - Set up environment variables in Netlify dashboard
-   - Check function logs for server-side errors
-   - Verify build settings in `netlify.toml` (if present)
+## 📊 Monitoring & Logging
+
+- **Winston** logging with file and console transports
+- **Morgan** HTTP request logging
+- Health check endpoints for monitoring
+- Error tracking and reporting
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please follow these steps:
-
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Run linting and tests
+6. Submit a pull request
 
-## 📝 License
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📬 Contact
-
-For questions, feedback, or support, please:
-- Open an issue on the [GitHub repository](https://github.com/your-username/chat-interface/issues)
-- Ensure to include steps to reproduce any bugs
-- Provide details about your environment (browser, OS, etc.)
-
-## 🚀 Deployment
-
-### Netlify
-1. Connect your GitHub repository to Netlify
-2. Set up the following environment variables in Netlify dashboard:
-   - `VITE_LANGFLOW_BASE_URL`
-   - `VITE_FLOW_ID`
-   - `VITE_LANGFLOW_API_KEY`
-   - `VITE_HF_TOKEN` (if using Hugging Face)
